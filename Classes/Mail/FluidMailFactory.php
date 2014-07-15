@@ -26,6 +26,7 @@ namespace CmsWorks\CwFluidmail\Mail;
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility as Util;
 
 class FluidMailFactory implements FluidMailFactoryInterface {
 
@@ -48,7 +49,7 @@ class FluidMailFactory implements FluidMailFactoryInterface {
 		$message = $this->objectManager->create('TYPO3\CMS\Core\Mail\MailMessage');
 		$view = $this->objectManager->create('CmsWorks\CwFluidmail\View\MailView');
 
-		$view->setTemplatePathAndFilename($template);
+		$view->setTemplatePathAndFilename(Util::getFileAbsFileName($template));
 		$view->assignMultiple($context);
 
 		list($subject, $plain, $html) = $view->render();
@@ -59,7 +60,7 @@ class FluidMailFactory implements FluidMailFactoryInterface {
 		if(trim($plain)) {
 			$message->addPart(trim($plain), 'text/plain');
 		}
-		
+
 		return $message;
 	}
 }
