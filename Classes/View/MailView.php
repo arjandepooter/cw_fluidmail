@@ -35,6 +35,7 @@ class MailView extends \TYPO3\CMS\Fluid\View\StandaloneView {
 	*
 	*/
 	public function render() {
+		$this->baseRenderingContext->setControllerContext($this->controllerContext);
 		$this->templateParser->setConfiguration($this->buildParserConfiguration());
 
 		$templateIdentifier = $this->getTemplateIdentifier();
